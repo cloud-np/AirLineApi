@@ -19,7 +19,13 @@ public class UserController {
         return "test";
     }
 
-    @PostMapping("/")
+    @PostMapping("/login")
+    public User loginUser(@RequestBody User user){
+        log.info("Inside UserController: saveUser");
+        return userService.findByEmail(user.getEmail());
+    }
+
+    @PostMapping("/register")
     public User saveUser(@RequestBody User user){
         log.info("Inside UserController: saveUser");
         return userService.saveUser(user);

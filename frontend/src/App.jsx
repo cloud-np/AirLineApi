@@ -1,21 +1,29 @@
 import './App.css'
 import serverInstance from './api/axiosInstance';
-import { useEffect } from 'react';
+import { useState } from 'react';
 import userEndPoints from './api/userEndPoints';
+import UserDataForm from './components/UserDataForm';
+import { Routes, Route } from 'react-router-dom';
+import Layout from './components/Layout';
 
 function App() {
-
-  useEffect(() => {
-    const test = async () => {
-      const response = await serverInstance.get(userEndPoints.test);
-      console.log(response);
-    }
-    test();
-  }, []);
+  const [user, setUser] = useState(null);
+  // useEffect(() => {
+  //   const test = async () => {
+  //     const response = await serverInstance.get(userEndPoints.test);
+  //     console.log(response);
+  //   }
+  //   test();
+  // }, []);
+  if (!user)
+    return <Layout><UserDataForm isForLogin={true} /></Layout>
 
   return (
-    <div className="App">
-    </div>
+    <Routes className="App">
+      <Route path="/" element={<div>Home</div>} />
+      <Route path="/login" element={<Layout><UserDataForm isForLogin={true} /></Layout>} />
+      <Route path="/signup" element={<Layout><UserDataForm isForLogin={false} /></Layout>} />
+    </Routes>
   )
 }
 

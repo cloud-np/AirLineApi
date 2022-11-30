@@ -1,7 +1,6 @@
 import axios from "axios";
-import env from "react-dotenv";
 
 const serverInstance = axios.create({
-    baseURL: "http://localhost:9090/api/v1"
+    baseURL: "http://localhost:9191/"
 });
 export default serverInstance;

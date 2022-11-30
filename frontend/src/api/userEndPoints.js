@@ -1,5 +1,5 @@
 const userEndPoints = {
-    login: "/login",
+    login: "/users/login",
     getAllUsers: "/users",
     test: "/test",
     register: "/register",
