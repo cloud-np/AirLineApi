@@ -6,26 +6,11 @@ spring:
     name: API-GATEWAY
   cloud:
     gateway:
-      globalcors:
-        corsConfigurations:
-          '[/**]':
-            allowedOrigins: "*"
-            allowedMethods:
-              - GET
-              - POST
-              - DELETE
-              - PATCH
-              - PUT
       routes:
         - id: USER-SERVICE
           uri: lb://USER-SERVICE
           predicates:
             - Path=/users/**
-#          filters:
-#            - name: CircuitBreaker
-#              args:
-#                name: USER-SERVICE
-#                fallbackuri: forward:/userServiceFallBack
         - id: FLIGHT-SERVICE
           uri: lb://FLIGHT-SERVICE
           predicates:
@@ -34,11 +19,6 @@ spring:
           uri: lb://RESERVATION-SERVICE
           predicates:
             - Path=/reservations/**
-#          filters:
-#            - name: CircuitBreaker
-#              args:
-#                name: FLIGHT-SERVICE
-#                fallbackuri: forward:/flightServiceFallBack
 
 hystrix:
   command:

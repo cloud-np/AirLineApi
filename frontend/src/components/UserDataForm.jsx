@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import axiosInstance from '../api/axiosInstance'; 
+import axios from 'axios';
 import userEndPoints from '../api/userEndPoints';
 
 const UserDataFormContainer = styled.form`
@@ -81,7 +82,8 @@ const UserDataForm = ({ isForLogin }) => {
     }
     const handleLogin = async (e) => {
         e.preventDefault();
-        const res = await axiosInstance.post(userEndPoints.login);
+        const res = await axiosInstance.post(userEndPoints.login, userData);
+        // const res = await axios.post('http://localhost:9191/users/login', userData);
         console.log(res);
     }
 
