@@ -5,6 +5,7 @@ import com.projectairlines.reservationservice.VO.Flight;
 import com.projectairlines.reservationservice.VO.ResponseTemplateVO;
 import com.projectairlines.reservationservice.model.Reservation;
 import com.projectairlines.reservationservice.reposity.ReservationRepository;
+import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -47,5 +48,13 @@ public class ReservationService {
         vo.setReservations(reservations);
         vo.setFlights(flights);
         return vo;
+    }
+
+    @PostConstruct
+    public void initEntities(){
+        reservationRepository.save(new Reservation((long)1, 309, (long)4, (long)2, 2));
+        reservationRepository.save(new Reservation((long)2, 309, (long)4, (long)1, 2));
+        reservationRepository.save(new Reservation((long)3, 309, (long)5, (long)2, 2));
+        reservationRepository.save(new Reservation((long)4, 309, (long)4, (long)5, 2));
     }
 }

@@ -20,5 +20,9 @@
 *.iml
 *.ipr
 
+### Ignore the Database ###
+backend/User/data/fileDb.mv.db
+*.db
+
 ### VS Code ###
 *.vscode/
