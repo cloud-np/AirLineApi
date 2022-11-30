@@ -14,14 +14,16 @@ public class UserController {
     private UserService userService;
 
     @GetMapping("/test")
-    public String test(){
+    public String test(String s){
         log.info("testing");
         return "test";
     }
 
+
     @PostMapping("/")
     public User saveUser(@RequestBody User user){
         log.info("Inside UserController: saveUser");
+
         return userService.saveUser(user);
     }
 

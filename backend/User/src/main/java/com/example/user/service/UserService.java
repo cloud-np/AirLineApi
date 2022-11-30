@@ -15,7 +15,8 @@ public class UserService {
 
     public User saveUser(User user){
         log.info("Inside UserService: saveUser");
-        return userRepository.save(user);
+//        return userRepository.save(user);
+        return user;
     }
 
     public User findUserById(Long userId){
