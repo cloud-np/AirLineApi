@@ -16,6 +16,8 @@ public class Flight {
     private int layover;
     private String scale;
     private boolean luggage;
+    private String startPos;
+    private String endPos;
 
     @Override
     public String toString() {
@@ -28,6 +30,8 @@ public class Flight {
                 ", layover=" + layover +
                 ", scale='" + scale + '\'' +
                 ", luggage=" + luggage +
+                ", startPos='" + startPos + '\'' +
+                ", endPos=" + endPos +
                 '}';
     }
 }

@@ -1,28 +1,30 @@
 import './App.css'
-import serverInstance from './api/axiosInstance';
 import { useState } from 'react';
-import userEndPoints from './api/userEndPoints';
-import UserDataForm from './components/UserDataForm';
 import { Routes, Route } from 'react-router-dom';
 import Layout from './components/Layout';
+import Dashboard from './pages/Dashboard';
+import Login from './pages/Login';
+import { LoginContext } from './contexts/LoginContexts';
+import Reservations from './pages/Reservations';
 
 function App() {
   const [user, setUser] = useState(null);
-  // useEffect(() => {
-  //   const test = async () => {
-  //     const response = await serverInstance.get(userEndPoints.test);
-  //     console.log(response);
-  //   }
-  //   test();
-  // }, []);
-  if (!user)
-    return <Layout><UserDataForm isForLogin={true} /></Layout>
+
+  const logTypes = [true, false].map(value => (
+    <LoginContext.Provider value={{user, setUser, isForLogin: value}}>
+      <Login />
+    </LoginContext.Provider>
+  ));
+
+  // Do not let user pass to the next page if they are not logged in
+  if (!user && !window.location.href.endsWith('/signup')) return logTypes[0];
 
   return (
     <Routes className="App">
-      <Route path="/" element={<div>Home</div>} />
-      <Route path="/login" element={<Layout><UserDataForm isForLogin={true} /></Layout>} />
-      <Route path="/signup" element={<Layout><UserDataForm isForLogin={false} /></Layout>} />
+      <Route path="/" element={<Dashboard />} />
+      <Route path="/login" element={logTypes[0]} />
+      <Route path="/signup" element={logTypes[1]} />
+      <Route path="/reservations" element={<Reservations />} />
     </Routes>
   )
 }

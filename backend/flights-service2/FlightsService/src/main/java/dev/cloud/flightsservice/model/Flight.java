@@ -20,6 +20,8 @@ public class Flight {
     private String airLineName;
     @Temporal(TemporalType.TIMESTAMP)
     private String transitDate;
+    private String startPos;
+    private String endPos;
     private int layover;
     private String scale;
     private boolean luggage;

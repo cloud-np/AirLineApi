@@ -44,7 +44,6 @@ public class ReservationService {
             Flight flight = restTemplate.getForObject("http://FLIGHT-SERVICE/flights/" + res.getFlightId(), Flight.class);
             flights.add(flight);
         }
-        log.info("" + flights.get(0));
         vo.setReservations(reservations);
         vo.setFlights(flights);
         return vo;

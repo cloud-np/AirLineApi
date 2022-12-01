@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import { LoginContext } from '../contexts/LoginContexts';
 import styled from 'styled-components';
 import axiosInstance from '../api/axiosInstance'; 
-import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import userEndPoints from '../api/userEndPoints';
 
 const UserDataFormContainer = styled.form`
@@ -63,10 +64,12 @@ const UserDataFormContainer = styled.form`
     }
 `
 
-const UserDataForm = ({ isForLogin }) => {
+const UserDataForm = () => {
     const [userData, setUserData] = useState({})
-    const [notMatchingPassword, setNotMatchingPassword] = useState(false)
-    const [login, setLogin] = useState(isForLogin)
+    const { setUser, isForLogin } = useContext(LoginContext);
+    const navigate = useNavigate();
+    const [notMatchingPassword, setNotMatchingPassword] = useState(false);
+    const [login, setLogin] = useState(isForLogin);
 
     const handleChange = (e) => {
         setUserData({
@@ -80,17 +83,20 @@ const UserDataForm = ({ isForLogin }) => {
         if(notMatchingPassword) setNotMatchingPassword(false);
         setLogin(!login);
     }
+
     const handleLogin = async (e) => {
         e.preventDefault();
         const res = await axiosInstance.post(userEndPoints.login, userData);
-        // const res = await axios.post('http://localhost:9191/users/login', userData);
-        console.log(res);
+        setUser(res.data);
+        localStorage.setItem('user', JSON.stringify(res.data));
+        navigate('/');
     }
 
     const handleSignUp = (e) => {
         e.preventDefault();
         if (userData['password'] !== userData['conPassword']) setNotMatchingPassword(true);
         else setNotMatchingPassword(false);
+        // setUser(res.data);
     }
 
 
